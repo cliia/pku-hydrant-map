@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import { Marker, Popup } from 'react-leaflet';
+import { Marker } from 'react-leaflet';
 import L, { DivIcon } from 'leaflet';
-import { Hydrant, Mode } from '@/types';
+import { Hydrant } from '@/types';
 
 const THUMB_ZOOM = -0.8; // show thumbnails earlier (two levels sooner)
 
@@ -38,92 +38,22 @@ function buildPinIcon(): DivIcon {
   });
 }
 
-export default function HydrantMarker({
-  hydrant,
-  zoom,
-  mode,
-  onDelete,
-  onPreview,
-  onMove
-}: {
-  hydrant: Hydrant;
-  zoom: number;
-  mode: Mode;
-  onDelete: (id: number) => void;
-  onPreview: (h: Hydrant) => void;
-  onMove: (id: number, coords: [number, number]) => void;
-}) {
+export default function HydrantMarker({ hydrant, zoom, onPreview }: { hydrant: Hydrant; zoom: number; onPreview: (h: Hydrant) => void }) {
   const showThumb = zoom >= THUMB_ZOOM;
   const thumbIcon = useMemo(() => buildThumbIcon(hydrant.image_thumb_path), [hydrant.image_thumb_path]);
   const pinIcon = useMemo(() => buildPinIcon(), []);
   const position: [number, number] = [hydrant.y_coord, hydrant.x_coord];
 
-  const dragHandlers =
-    mode === 'edit'
-      ? {
-          dragend: (e: L.LeafletEvent) => {
-            const marker = e.target as L.Marker;
-            const { lat, lng } = marker.getLatLng();
-            onMove(hydrant.id, [lat, lng]);
-          }
-        }
-      : undefined;
-
   if (showThumb) {
     const events = {
-      ...(dragHandlers ?? {}),
-      ...(mode === 'view'
-        ? {
-            click: () => onPreview(hydrant)
-          }
-        : {})
+      click: () => onPreview(hydrant)
     };
     return (
-      <Marker position={position} icon={thumbIcon} draggable={mode === 'edit'} eventHandlers={events}>
-        {mode === 'edit' && (
-          <Popup>
-            <div className="space-y-2 text-sm">
-              <div className="text-xs text-slate-600">(y, x): {hydrant.y_coord.toFixed(1)}, {hydrant.x_coord.toFixed(1)}</div>
-              <button
-                onClick={() => onDelete(hydrant.id)}
-                className="w-full rounded-lg bg-rose-600 px-3 py-2 text-white shadow hover:bg-rose-700"
-              >
-                删除
-              </button>
-            </div>
-          </Popup>
-        )}
-      </Marker>
+      <Marker position={position} icon={thumbIcon} draggable={false} eventHandlers={events} />
     );
   }
 
   return (
-    <Marker
-      position={position}
-      icon={pinIcon}
-      draggable={mode === 'edit'}
-      eventHandlers={{
-        ...(dragHandlers ?? {}),
-        ...(mode === 'view'
-          ? {
-              click: () => onPreview(hydrant)
-            }
-          : {})
-      }}
-    >
-      {mode === 'edit' && (
-        <Popup>
-          <div className="space-y-2 text-sm">
-            <div className="text-xs text-slate-600">(y, x): {hydrant.y_coord.toFixed(1)}, {hydrant.x_coord.toFixed(1)}</div>
-            <button
-              onClick={() => onDelete(hydrant.id)}
-              className="w-full rounded-lg bg-rose-600 px-3 py-2 text-white shadow hover:bg-rose-700"
-            >
-              删除
-            </button>
-          </div>
-        </Popup>
-      )}
-    </Marker>
+    <Marker position={position} icon={pinIcon} draggable={false} eventHandlers={{ click: () => onPreview(hydrant) }} />
   );
 }

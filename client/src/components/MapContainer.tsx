@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { CRS, LatLngExpression, LeafletMouseEvent } from 'leaflet';
+import { CRS, LatLngExpression } from 'leaflet';
 import { ImageOverlay, MapContainer as LeafletMap, useMap, useMapEvents } from 'react-leaflet';
 import HydrantMarker from './HydrantMarker';
-import { Hydrant, Mode } from '@/types';
+import { Hydrant } from '@/types';
 
 const IMAGE_HEIGHT = 2568; // y
 const IMAGE_WIDTH = 3608; // x
@@ -20,17 +20,6 @@ function FitBoundsOnce() {
   return null;
 }
 
-function ClickCapture({ mode, onAdd }: { mode: Mode; onAdd: (coords: [number, number]) => void }) {
-  useMapEvents({
-    click: (e: LeafletMouseEvent) => {
-      if (mode === 'edit') {
-        onAdd([e.latlng.lat, e.latlng.lng]);
-      }
-    }
-  });
-  return null;
-}
-
 function ZoomWatcher({ onZoomChange }: { onZoomChange: (z: number) => void }) {
   const map = useMapEvents({
     zoomend: () => onZoomChange(map.getZoom())
@@ -45,14 +34,10 @@ function ZoomWatcher({ onZoomChange }: { onZoomChange: (z: number) => void }) {
 
 export type MapProps = {
   hydrants: Hydrant[];
-  mode: Mode;
-  onAddRequest: (coords: [number, number]) => void;
-  onDelete: (id: number) => void;
   onPreview: (h: Hydrant) => void;
-  onMove: (id: number, coords: [number, number]) => void;
 };
 
-export default function MapContainer({ hydrants, mode, onAddRequest, onDelete, onPreview, onMove }: MapProps) {
+export default function MapContainer({ hydrants, onPreview }: MapProps) {
   const [zoom, setZoom] = useState(0);
 
   return (
@@ -70,10 +55,9 @@ export default function MapContainer({ hydrants, mode, onAddRequest, onDelete, o
     >
       <ImageOverlay url="/pku-map.png" bounds={bounds} />
       <FitBoundsOnce />
-      <ClickCapture mode={mode} onAdd={onAddRequest} />
       <ZoomWatcher onZoomChange={setZoom} />
       {hydrants.map((h) => (
-        <HydrantMarker key={h.id} hydrant={h} zoom={zoom} mode={mode} onDelete={onDelete} onPreview={onPreview} onMove={onMove} />
+        <HydrantMarker key={h.id} hydrant={h} zoom={zoom} onPreview={onPreview} />
       ))}
     </LeafletMap>
   );

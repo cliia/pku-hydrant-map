@@ -5,6 +5,12 @@ node_modules/
 # builds
 client/dist/
 client/.vite/
+client/.cache/
+
+# gh-pages artifacts
+.gh-pages-cache/
+gh-pages-*.tmp
+*.publish
 
 # env / local
 .env
@@ -14,7 +20,7 @@ client/.vite/
 .pixi/
 
 # uploads & generated assets
-uploads/
+/uploads/
 server/hydrants.db
 
 # logs

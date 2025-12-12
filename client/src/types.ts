@@ -6,5 +6,3 @@ export type Hydrant = {
   image_thumb_path: string;
   created_at?: string;
 };
-
-export type Mode = 'view' | 'edit';
