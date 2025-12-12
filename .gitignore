@@ -20,7 +20,6 @@ gh-pages-*.tmp
 .pixi/
 
 # uploads & generated assets
-/uploads/
 server/hydrants.db
 
 # logs

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node ../scripts/migrate-to-static.js",
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "vite build",
