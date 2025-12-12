@@ -5,10 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node ../scripts/migrate-to-static.js",
-    "build": "vite build",
+    "build": "node ../scripts/migrate-to-static.js && vite build",
     "preview": "vite preview",
-    "predeploy": "vite build",
+    "predeploy": "node ../scripts/migrate-to-static.js",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
