@@ -1,0 +1,28 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+client/dist/
+client/.vite/
+
+# env / local
+.env
+.env.*
+
+# pixi
+.pixi/
+
+# uploads & generated assets
+uploads/
+server/hydrants.db
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# system
+.DS_Store
+Thumbs.db

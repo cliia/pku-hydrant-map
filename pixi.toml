@@ -1,0 +1,21 @@
+[workspace]
+name = "pku-hydrant-map"
+channels = ["conda-forge"]
+platforms = ["win-64"]
+
+[dependencies]
+nodejs = "22.*"
+pnpm = "9.*"
+python = "3.11.*"
+
+[tasks.setup-client]
+cmd = "cd client && pnpm install"
+
+[tasks.setup-server]
+cmd = "cd server && pnpm install"
+
+[tasks.start]
+cmd = "pnpm dlx concurrently \"cd server && pnpm dev\" \"cd client && pnpm dev\""
+
+[tasks.build]
+cmd = "cd client && pnpm build"
