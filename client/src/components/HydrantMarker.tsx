@@ -30,10 +30,10 @@ function buildPinIcon(): DivIcon {
   `);
   return L.divIcon({
     className: 'hydrant-pin',
-    iconSize: [34, 48],
-    iconAnchor: [17, 48],
-    html: `<div style="width:34px; height:48px;">` +
-      `<img src="data:image/svg+xml,${svg}" style="width:34px;height:48px;"/>` +
+    iconSize: [24, 34],
+    iconAnchor: [12, 34],
+    html: `<div style="width:24px; height:34px;">` +
+      `<img src="data:image/svg+xml,${svg}" style="width:24px;height:34px;"/>` +
       `</div>`
   });
 }
