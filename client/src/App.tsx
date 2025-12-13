@@ -57,7 +57,7 @@ export default function App() {
         <header className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-2xl font-bold tracking-tight text-slate-900">PKU Hydrant Map</h1>
-            <p className="text-sm text-slate-600">北京大学地下消防栓地图</p>
+            <p className="text-sm text-slate-600">北京大学部分地下消防栓和消防水泵接合器地图</p>
           </div>
           <div className="flex items-center gap-3">
             {loading && <span className="text-xs text-slate-500">加载中...</span>}
