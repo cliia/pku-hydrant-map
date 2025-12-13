@@ -4,12 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "node ../scripts/migrate-to-static.js && vite build",
-    "preview": "vite preview",
-    "predeploy": "node ../scripts/migrate-to-static.js",
-    "deploy": "gh-pages -d dist"
-  },
+  "build": "node ../scripts/migrate-to-static.js && vite build",
+  "predeploy": "pnpm run build",
+  "deploy": "gh-pages -d dist"
+},
   "dependencies": {
     "leaflet": "^1.9.4",
     "react": "^18.3.1",
