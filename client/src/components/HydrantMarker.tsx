@@ -3,7 +3,7 @@ import { Marker } from 'react-leaflet';
 import L, { DivIcon } from 'leaflet';
 import { Hydrant } from '@/types';
 
-const THUMB_ZOOM = -0.8; // show thumbnails earlier (two levels sooner)
+const THUMB_ZOOM = 0.5; // show thumbnails after roughly three zoom-ins from initial
 
 function buildThumbIcon(url: string): DivIcon {
   return L.divIcon({
@@ -49,11 +49,17 @@ export default function HydrantMarker({ hydrant, zoom, onPreview }: { hydrant: H
       click: () => onPreview(hydrant)
     };
     return (
-      <Marker position={position} icon={thumbIcon} draggable={false} eventHandlers={events} />
+      <Marker position={position} icon={thumbIcon} draggable={false} eventHandlers={events} zIndexOffset={1000} />
     );
   }
 
   return (
-    <Marker position={position} icon={pinIcon} draggable={false} eventHandlers={{ click: () => onPreview(hydrant) }} />
+    <Marker
+      position={position}
+      icon={pinIcon}
+      draggable={false}
+      eventHandlers={{ click: () => onPreview(hydrant) }}
+      zIndexOffset={900}
+    />
   );
 }
