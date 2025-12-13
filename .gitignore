@@ -17,6 +17,7 @@ gh-pages-*.tmp
 .env.*
 
 # pixi
+/client/public/
 .pixi/
 
 # uploads & generated assets

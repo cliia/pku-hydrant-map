@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { CRS, LatLngExpression } from 'leaflet';
 import { ImageOverlay, MapContainer as LeafletMap, useMap, useMapEvents } from 'react-leaflet';
 import HydrantMarker from './HydrantMarker';
@@ -39,6 +39,8 @@ export type MapProps = {
 
 export default function MapContainer({ hydrants, onPreview }: MapProps) {
   const [zoom, setZoom] = useState(0);
+  const assetBase = useMemo(() => new URL(import.meta.env.BASE_URL || '/', window.location.origin).toString(), []);
+  const mapUrl = useMemo(() => new URL('pku-map.png', assetBase).toString(), [assetBase]);
 
   return (
     <LeafletMap
@@ -53,7 +55,7 @@ export default function MapContainer({ hydrants, onPreview }: MapProps) {
       attributionControl={false}
       zoomControl={false}
     >
-      <ImageOverlay url="/pku-map.png" bounds={bounds} />
+      <ImageOverlay url={mapUrl} bounds={bounds} />
       <FitBoundsOnce />
       <ZoomWatcher onZoomChange={setZoom} />
       {hydrants.map((h) => (

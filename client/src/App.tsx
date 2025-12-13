@@ -8,8 +8,16 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [preview, setPreview] = useState<Hydrant | null>(null);
 
-  const dataUrl = useMemo(() => new URL('data.json', import.meta.env.BASE_URL).toString(), []);
-  const assetBase = useMemo(() => import.meta.env.BASE_URL, []);
+  const dataUrl = useMemo(() => {
+    const basePath = import.meta.env.BASE_URL || '/';
+    const absBase = new URL(basePath, window.location.origin).toString();
+    return new URL('data.json', absBase).toString();
+  }, []);
+
+  const assetBase = useMemo(() => {
+    const basePath = import.meta.env.BASE_URL || '/';
+    return new URL(basePath, window.location.origin).toString();
+  }, []);
 
   const fetchHydrants = useMemo(
     () =>
