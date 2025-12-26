@@ -16,7 +16,8 @@ function FitBoundsOnce() {
   const map = useMap();
   useEffect(() => {
     map.fitBounds(bounds, { animate: false });
-  }, [map]);
+    map.zoomIn(1, { animate: false }); // start one level closer than fit-to-bounds
+ }, [map]);
   return null;
 }
 

@@ -3,7 +3,7 @@ import { Marker } from 'react-leaflet';
 import L, { DivIcon } from 'leaflet';
 import { Hydrant } from '@/types';
 
-const THUMB_ZOOM = 0.5; // show thumbnails after roughly three zoom-ins from initial
+const THUMB_ZOOM = 0.2; // show thumbnails after roughly three zoom-ins from initial
 
 function buildThumbIcon(url: string): DivIcon {
   return L.divIcon({
