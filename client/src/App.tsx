@@ -74,6 +74,24 @@ export default function App() {
           {error && <div className="absolute left-4 top-4 rounded-lg bg-rose-100 px-3 py-2 text-xs text-rose-700 shadow-sm">{error}</div>}
         </div>
 
+        <footer className="mt-4 border-t border-slate-200 pt-4 text-center text-xs text-slate-500">
+          <p>
+            Code licensed under <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noreferrer" className="underline hover:text-slate-700">MIT</a>.
+            Assets licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer" className="underline hover:text-slate-700">CC BY 4.0</a>.
+          </p>
+          <div className="mt-2 mx-auto max-w-2xl space-y-1">
+            <p className="font-medium text-rose-600">
+              免责声明：本项目仅供课程学习交流，数据非官方发布，可能存在误差。
+            </p>
+            <p>
+              紧急情况下请务必以现场实际标识和官方指引为准，切勿仅依赖本图。
+            </p>
+            <p className="text-slate-400">
+              （地图底图来源于网络）
+            </p>
+          </div>
+        </footer>
+
         {preview && (
           <div
             className="fixed inset-0 z-[1300] flex items-center justify-center bg-black/80 p-4"
